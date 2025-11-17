@@ -1,7 +1,7 @@
 import numpy as np
 a=np.array([[10, 20, 30],
                 [40, 50, 60]])
-print("Original 2D Array:")
+print("Original 2D Array:",a)
 print("\nsum of all elements:", np.sum(a))
 print("\nsum of columns:", np.sum(a, axis=0))
 print("\nsum of rows:", np.sum(a, axis=1))
