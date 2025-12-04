@@ -26,8 +26,11 @@ int isEmpty() {
 }
 
 void BFS(int adj[MAX][MAX], int n, int start) {
-    int visited[MAX] = {0};
+    int visited[MAX];
     int i, vertex;
+    for (i = 0; i < MAX; i++) {
+        visited[i] = 0;
+    }
 
     printf("BFS Traversal starting from vertex %d: ", start);
     enqueue(start);
