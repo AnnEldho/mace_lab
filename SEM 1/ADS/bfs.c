@@ -20,7 +20,7 @@ int dequeue() {
     else
         return queue[front++];
 }
-
+ 
 int isEmpty() {
     return (front == -1 || front > rear);
 }
@@ -63,7 +63,7 @@ int main() {
             scanf("%d", &adj[i][j]);
         }
     }
-
+        
     printf("Enter the starting vertex (0 to %d): ", n - 1);
     scanf("%d", &start);
 

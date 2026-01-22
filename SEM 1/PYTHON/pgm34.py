@@ -5,7 +5,7 @@ try:
     n=int(input("Enter the line number to remove : "))
     lines.pop(n-1)
     in1.truncate(0)
-    in1.seek(0,0)
+    
     in1.writelines(lines)
     in1.close()
     in1=open('abc.txt','r')

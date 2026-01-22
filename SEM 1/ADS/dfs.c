@@ -2,7 +2,7 @@
 
 #define MAX 20
 
-int graph[MAX][MAX];
+int adj[MAX][MAX];
 int visited[MAX];
 int n;
 
@@ -11,7 +11,7 @@ void dfs(int vertex) {
     printf("%d ", vertex);
 
     for (int i = 1; i <= n; i++) {
-        if (graph[vertex][i] == 1 && visited[i] == 0) {
+        if (adj[vertex][i] == 1 && visited[i] == 0) {
             dfs(i);
         }
     }
@@ -26,7 +26,7 @@ int main() {
     printf("Enter adjacency matrix of the graph (%d x %d):\n", n, n);
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
-            scanf("%d", &graph[i][j]);
+            scanf("%d", &adj[i][j]);
         }
     }
 
