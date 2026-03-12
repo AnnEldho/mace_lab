@@ -14,10 +14,11 @@ class Cuboid implements Comparable {
         this.h = h;
     }
 
+@Override
     public double volume() {
         return l * b * h;
     }
-
+@Override
     public int compare(Comparable other) {
         if (this.volume() > other.volume())
             return 1;
@@ -36,11 +37,11 @@ class Cylinder implements Comparable {
         this.r = r;
         this.h = h;
     }
-
+@Override
     public double volume() {
         return Math.PI * r * r * h;
     }
-
+@Override
     public int compare(Comparable other) {
         if (this.volume() > other.volume())
             return 1;
