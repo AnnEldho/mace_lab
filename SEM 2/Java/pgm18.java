@@ -22,7 +22,7 @@ class pgm18 {
         int ch;
 
         do{
-            System.out.println("\n1.Add Product  2.Sort by Name  3.Display  4.Exit");
+            System.out.println("\n---MENU---\n1.Add Product  2.Sort by Name  3.Display  4.Exit");
             ch = sc.nextInt();
             sc.nextLine();
 
