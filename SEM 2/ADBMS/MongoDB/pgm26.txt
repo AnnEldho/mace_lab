@@ -1,0 +1,246 @@
+
+PROG  26: PROG  22: Create a database named "College" in MongoDB and add a collection called "Student" with the following fields: Id, Name, Age, Gender, Department, Sub1, Sub2, Attendance.
+    a) Find students who scored more than 80 in both subjects.
+    b) List students who are either in the "Computer Science" department or are older than 22.
+    c) Find students who are not in the "Electronics" department.
+    d) Retrieve students who neither scored above 80 in sub1 nor have attendance more than 85%.
+    e) Find students who are neither in "Mechanical" nor in "Civil" departments.
+    
+    
+> use college
+switched to db college
+> db.createCollection("Student")
+{ "ok" : 1 }
+
+    
+    db.Student.insertMany([
+{
+  Id: 1,
+  Name: "Arun",
+  Age: 21,
+  Gender: "Male",
+  Department: "Computer Science",
+  Sub1: 85,
+  Sub2: 90,
+  Attendance: 88
+},
+{
+  Id: 2,
+  Name: "Meera",
+  Age: 23,
+  Gender: "Female",
+  Department: "Electronics",
+  Sub1: 75,
+  Sub2: 82,
+  Attendance: 80
+}])
+-------------------------------------------------------------------------------------------------
+a)>  db.Student.find({
+    Sub1: { $gt: 80 },
+    Sub2: { $gt: 80 }
+  }).pretty()
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
+	"Id" : 1,
+	"Name" : "Arun",
+	"Age" : 21,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 85,
+	"Sub2" : 90,
+	"Attendance" : 88
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f7"),
+	"Id" : 4,
+	"Name" : "Anu",
+	"Age" : 22,
+	"Gender" : "Female",
+	"Department" : "Civil",
+	"Sub1" : 92,
+	"Sub2" : 88,
+	"Attendance" : 91
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f8"),
+	"Id" : 5,
+	"Name" : "John",
+	"Age" : 20,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 81,
+	"Sub2" : 83,
+	"Attendance" : 86
+}
+
+
+-------------------------------------------------------------------------------------------------
+b)> db.Student.find({
+    $or: [
+      { Department: "Computer Science" },
+      { Age: { $gt: 22 } }
+    ]
+  }).pretty()
+
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
+	"Id" : 1,
+	"Name" : "Arun",
+	"Age" : 21,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 85,
+	"Sub2" : 90,
+	"Attendance" : 88
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f5"),
+	"Id" : 2,
+	"Name" : "Meera",
+	"Age" : 23,
+	"Gender" : "Female",
+	"Department" : "Electronics",
+	"Sub1" : 75,
+	"Sub2" : 82,
+	"Attendance" : 80
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f6"),
+	"Id" : 3,
+	"Name" : "Rahul",
+	"Age" : 24,
+	"Gender" : "Male",
+	"Department" : "Mechanical",
+	"Sub1" : 60,
+	"Sub2" : 70,
+	"Attendance" : 78
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f8"),
+	"Id" : 5,
+	"Name" : "John",
+	"Age" : 20,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 81,
+	"Sub2" : 83,
+	"Attendance" : 86
+}
+
+-------------------------------------------------------------------------------------------------
+c) > db.Student.find({
+    Department: { $ne: "Electronics" }
+  }).pretty()
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
+	"Id" : 1,
+	"Name" : "Arun",
+	"Age" : 21,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 85,
+	"Sub2" : 90,
+	"Attendance" : 88
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f6"),
+	"Id" : 3,
+	"Name" : "Rahul",
+	"Age" : 24,
+	"Gender" : "Male",
+	"Department" : "Mechanical",
+	"Sub1" : 60,
+	"Sub2" : 70,
+	"Attendance" : 78
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f7"),
+	"Id" : 4,
+	"Name" : "Anu",
+	"Age" : 22,
+	"Gender" : "Female",
+	"Department" : "Civil",
+	"Sub1" : 92,
+	"Sub2" : 88,
+	"Attendance" : 91
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f8"),
+	"Id" : 5,
+	"Name" : "John",
+	"Age" : 20,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 81,
+	"Sub2" : 83,
+	"Attendance" : 86
+}
+
+
+-------------------------------------------------------------------------------------------------
+d)> db.Student.find({
+    Sub1: { $lte: 80 },
+    Attendance: { $lte: 85 }
+  }).pretty()
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f5"),
+	"Id" : 2,
+	"Name" : "Meera",
+	"Age" : 23,
+	"Gender" : "Female",
+	"Department" : "Electronics",
+	"Sub1" : 75,
+	"Sub2" : 82,
+	"Attendance" : 80
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f6"),
+	"Id" : 3,
+	"Name" : "Rahul",
+	"Age" : 24,
+	"Gender" : "Male",
+	"Department" : "Mechanical",
+	"Sub1" : 60,
+	"Sub2" : 70,
+	"Attendance" : 78
+}
+
+
+-------------------------------------------------------------------------------------------------
+e)
+db.Student.find({
+    Department: { $nin: ["Mechanical", "Civil"] }
+  }).pretty()
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
+	"Id" : 1,
+	"Name" : "Arun",
+	"Age" : 21,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 85,
+	"Sub2" : 90,
+	"Attendance" : 88
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f5"),
+	"Id" : 2,
+	"Name" : "Meera",
+	"Age" : 23,
+	"Gender" : "Female",
+	"Department" : "Electronics",
+	"Sub1" : 75,
+	"Sub2" : 82,
+	"Attendance" : 80
+}
+{
+	"_id" : ObjectId("69b90cfcc93154854d8af0f8"),
+	"Id" : 5,
+	"Name" : "John",
+	"Age" : 20,
+	"Gender" : "Male",
+	"Department" : "Computer Science",
+	"Sub1" : 81,
+	"Sub2" : 83,
+	"Attendance" : 86
+}
