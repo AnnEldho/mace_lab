@@ -13,7 +13,6 @@ class Attendee {
     public int hashCode(){
         return registrationId;
     }
-@Override
     public boolean equals(Object o){
         Attendee a = (Attendee)o;
         return registrationId == a.registrationId;
