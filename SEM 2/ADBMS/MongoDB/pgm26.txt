@@ -9,11 +9,12 @@ PROG  26: PROG  22: Create a database named "College" in MongoDB and add a colle
     
 > use college
 switched to db college
+
 > db.createCollection("Student")
 { "ok" : 1 }
 
     
-    db.Student.insertMany([
+> db.Student.insertMany([
 {
   Id: 1,
   Name: "Arun",
@@ -35,10 +36,7 @@ switched to db college
   Attendance: 80
 }])
 -------------------------------------------------------------------------------------------------
-a)>  db.Student.find({
-    Sub1: { $gt: 80 },
-    Sub2: { $gt: 80 }
-  }).pretty()
+a)>  db.Student.find({Sub1: { $gt: 80 }, Sub2: { $gt: 80 }}).pretty()
 {
 	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
 	"Id" : 1,
@@ -75,12 +73,7 @@ a)>  db.Student.find({
 
 
 -------------------------------------------------------------------------------------------------
-b)> db.Student.find({
-    $or: [
-      { Department: "Computer Science" },
-      { Age: { $gt: 22 } }
-    ]
-  }).pretty()
+b)> db.Student.find({ $or: [{ Department: "Computer Science" },{ Age: { $gt: 22 } }]}).pretty()
 
 {
 	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
@@ -128,9 +121,7 @@ b)> db.Student.find({
 }
 
 -------------------------------------------------------------------------------------------------
-c) > db.Student.find({
-    Department: { $ne: "Electronics" }
-  }).pretty()
+c) > db.Student.find({ Department: { $ne: "Electronics" }}).pretty()
 {
 	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
 	"Id" : 1,
@@ -178,10 +169,7 @@ c) > db.Student.find({
 
 
 -------------------------------------------------------------------------------------------------
-d)> db.Student.find({
-    Sub1: { $lte: 80 },
-    Attendance: { $lte: 85 }
-  }).pretty()
+d)> db.Student.find({Sub1: { $lte: 80 }, Attendance: { $lte: 85 }}).pretty()
 {
 	"_id" : ObjectId("69b90cfcc93154854d8af0f5"),
 	"Id" : 2,
@@ -208,9 +196,7 @@ d)> db.Student.find({
 
 -------------------------------------------------------------------------------------------------
 e)
-db.Student.find({
-    Department: { $nin: ["Mechanical", "Civil"] }
-  }).pretty()
+db.Student.find({Department: { $nin: ["Mechanical", "Civil"] }}).pretty()
 {
 	"_id" : ObjectId("69b90cfcc93154854d8af0f4"),
 	"Id" : 1,
