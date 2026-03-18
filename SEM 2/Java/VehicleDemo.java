@@ -18,7 +18,7 @@ class Car extends Vehicle {
         this.doors = doors;
         this.fuelType = fuelType;
     }
-
+@Override
     void display() {
         System.out.println("Model: " + model);
         System.out.println("Company: " + company);
@@ -35,7 +35,7 @@ class Electric extends Car {
         super(model, company, doors, fuelType);
         this.batteryCapacity = batteryCapacity;
     }
-
+@Override
     void display() {
         super.display();
         System.out.println("Battery Capacity: " + batteryCapacity + " kWh");
