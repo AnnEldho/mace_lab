@@ -10,7 +10,7 @@ void *p0()
     turn = 1;
     while(flag[1] && turn == 1);
 
-    printf("Process 0 in CS\n");
+    printf("Process 0 in CS \n");
 
     flag[0] = 0;
 }
