@@ -43,7 +43,7 @@ void *process1()
     temp++;
     count = temp;
 
-    printf("Process 1 updated count = %d\n", count);
+    printf("Process 1 updated count = %d \n", count);
 
     flag[1] = 0;
 
