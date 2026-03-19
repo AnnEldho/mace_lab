@@ -1,77 +1,86 @@
-class Counter {
-        private int count = 10;
- 
-        public synchronized void increment() {
-            count++;
-            System.out.println("Incremented: " + count);
-        }
- 
-        public synchronized void decrement() {
-            count -= 2;
-            System.out.println("Decremented: " + count);
-        }
- 
-        public synchronized int getCount() {
-            return count;
-        }
+// SHARED ACCOUNT
+class Account {
+    private int balance = 1000;
+
+    public Account() {
+        System.out.println("Initial Balance: " + balance);
     }
- 
-class Incrementer implements Runnable {
-        private Counter counter;
- 
-        public Incrementer(Counter counter) {
-            this.counter = counter;
-        }
- 
-        @Override
-        public void run() {
-            for (int i = 0; i < 5; i++) {
-                counter.increment();
-                try {
-                    Thread.sleep(200); // Simulate work
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+
+    public synchronized void deposit(int amount) {
+        balance += amount;
+        System.out.println("Deposited: " + amount + " | Balance: " + balance);
+        notify();
     }
- 
-class Decrementer implements Runnable {
-        private Counter counter;
- 
-        public Decrementer(Counter counter) {
-            this.counter = counter;
+
+    public synchronized void withdraw(int amount) {
+
+        // Case 1: transaction not possible
+        if (amount > balance) {
+            System.out.println("Transaction not possible! Insufficient balance.");
         }
- 
-        @Override
-        public void run() {
-            for (int i = 0; i < 5; i++) {
-                counter.decrement();
-                try {
-                    Thread.sleep(300); // Simulate work
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+
+        // Wait for deposit if needed
+        while (balance < amount) {
+            System.out.println("Waiting for deposit...");
+            try { wait(); } catch (InterruptedException e) {}
         }
-    }
-public class pgm25{
-    public static void main(String[] args) {
-        Counter sharedCounter = new Counter();
- 
-        Thread incrementThread = new Thread(new Incrementer(sharedCounter));
-        Thread decrementThread = new Thread(new Decrementer(sharedCounter));
- 
-        incrementThread.start();
-        decrementThread.start();
- 
-        try {
-            incrementThread.join();
-            decrementThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
- 
-        System.out.println("Final Counter Value: " + sharedCounter.getCount());
+
+        balance -= amount;
+        System.out.println("Withdrawn: " + amount + " | Balance: " + balance);
     }
 }
+
+// DEPOSITOR THREAD
+class Depositor implements Runnable {
+    private Account acc;
+
+    Depositor(Account acc) {
+        this.acc = acc;
+    }
+
+    public void run() {
+        acc.deposit(500);
+    }
+}
+
+// WITHDRAWER THREAD
+class Withdrawer implements Runnable {
+    private Account acc;
+
+    Withdrawer(Account acc) {
+        this.acc = acc;
+    }
+
+    public void run() {
+        acc.withdraw(1200);
+    }
+}
+
+// MAIN CLASS
+public class pgm25 {
+    public static void main(String[] args) {
+
+        Account acc = new Account();
+
+        Thread t1 = new Thread(new Withdrawer(acc));
+        Thread t2 = new Thread(new Depositor(acc));
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {}
+
+        System.out.println("Transaction Completed!");
+    }
+}
+/*
+Initial Balance: 1000
+Transaction not possible! Insufficient balance.
+Waiting for deposit...
+Deposited: 500 | Balance: 1500
+Withdrawn: 1200 | Balance: 300
+Transaction Completed!
+*/
