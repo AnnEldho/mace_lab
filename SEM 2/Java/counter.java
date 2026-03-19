@@ -75,3 +75,16 @@ public class counter{
         System.out.println("Final Counter Value: " + sharedCounter.getCount());
     }
 }
+/*
+Incremented: 11
+Decremented: 9
+Incremented: 10
+Decremented: 8
+Incremented: 9
+Incremented: 10
+Decremented: 8
+Incremented: 9
+Decremented: 7
+Decremented: 5
+Final Counter Value: 5
+*/
