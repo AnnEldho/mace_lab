@@ -13,7 +13,6 @@ class Attendee {
     public int hashCode(){
         return registrationId;
     }
-@Override
     public boolean equals(Object o){
         Attendee a = (Attendee)o;
         return registrationId == a.registrationId;
@@ -61,25 +60,24 @@ class pgm20 {
 /*
 1.Add Attendee  2.Display  3.Exit
 1
-Name: ann
+Name: Ann
 Email: ann@gmail.com
+Registration ID: 101
+
+1.Add Attendee  2.Display  3.Exit
+1
+Name: Appu
+Email: app2gmail.com
 Registration ID: 102
 
 1.Add Attendee  2.Display  3.Exit
 1
-Name: apsara
+Name: Apsara
 Email: apsara@gmail.com
-Registration ID: 103
-
-1.Add Attendee  2.Display  3.Exit
-1
-Name: appu
-Email: appu@gmail.com
-Registration ID: 101
+Registration ID: 102
 
 1.Add Attendee  2.Display  3.Exit
 2
-101 appu appu@gmail.com
-102 ann ann@gmail.com
-103 apsara apsara@gmail.com
+101 Ann ann@gmail.com
+102 Appu app2gmail.com
 */
