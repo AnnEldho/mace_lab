@@ -1,0 +1,70 @@
+PROG  27: Create a database named "Company" in MongoDB and add a collection called Customer" with the following fields: id, name, email, phone and address, order_id, order_date.
+
+> use Company
+switched to db Company
+> db.createCollection("Customer")
+{"ok" : 0}
+> db.Customer.insertMany([
+ {
+   id: "C123",
+   name: "Arun",
+   email: "arun@gmail.com",
+   phone: "9876543210",
+   address: "Kochi",
+   order_id: 101,
+   order_date: "2025-10-10",
+   order_count: 6
+ },
+ {
+   id: "C124",
+   name: "Anu",
+   email: "anu@gmail.com",
+   phone: "9876500000",
+   address: "Ernakulam",
+   order_id: 102,
+   order_date: "2023-02-15",
+   order_count: 3
+ }
+ ])
+
+
+a) Update the email of a customer where id is "C123".
+    
+> db.Customer.updateOne(
+   { id: "C123" },
+   { $set: { email: "newarun@gmail.com" } }
+ )
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+b) Delete all customers who have not placed an order in the last year.
+
+> db.Customer.deleteMany({
+   order_date: { $lt: "2024-03-24" }
+ })
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+
+c) Find all customers whose name starts with "A" and have placed more than five orders.
+
+
+
+
+> db.Customer.find({
+   name: { $regex: "^A" },
+   order_count: { $gt: 5 }
+ }).pretty()
+{
+	"_id" : ObjectId("69c24f74c3c7bc5d9bde2091"),
+	"id" : "C123",
+	"name" : "Arun",
+	"email" : "newarun@gmail.com",
+	"phone" : "9876543210",
+	"address" : "Kochi",
+	"order_id" : 101,
+	"order_date" : "2025-10-10",
+	"order_count" : 6
+}
+    
+
+   
+  
