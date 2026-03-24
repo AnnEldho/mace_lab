@@ -1,0 +1,106 @@
+PROG  28: Create a database named "Company" in MongoDB and add a collection called "Employee" with the following fields: EmpId, EmpName, DOB, Salary and Designation.
+
+> use Company
+switched to db Company
+> db.createCollection("Employee")
+{ "ok" : 1 }
+> db.Employee.insertMany([
+... {
+...   EmpId: 1,
+...   EmpName: "Suresh",
+...   DOB: "1990-05-10",
+...   Salary: 30000,
+...   Designation: "Manager"
+... },
+... {
+...   EmpId: 2,
+...   EmpName: "Anil",
+...   DOB: "1995-07-12",
+...   Salary: 25000,
+...   Designation: "Developer"
+... },
+... {
+...   EmpId: 3,
+...   EmpName: "Sita",
+...   DOB: "1992-03-08",
+...   Salary: 28000,
+...   Designation: "Tester"
+... }
+... ])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("69c2554d98e2a91bf1cc5f1f"),
+		ObjectId("69c2554d98e2a91bf1cc5f20"),
+		ObjectId("69c2554d98e2a91bf1cc5f21")
+	]
+}
+
+ a) Retrieve documents where the EmpName starts with the letter "S".
+> db.Employee.find(
+...   { EmpName: { $regex: "^S" } }).pretty()
+{
+	"_id" : ObjectId("69c2554d98e2a91bf1cc5f1f"),
+	"EmpId" : 1,
+	"EmpName" : "Suresh",
+	"DOB" : "1990-05-10",
+	"Salary" : 30000,
+	"Designation" : "Manager"
+}
+{
+	"_id" : ObjectId("69c2554d98e2a91bf1cc5f21"),
+	"EmpId" : 3,
+	"EmpName" : "Sita",
+	"DOB" : "1992-03-08",
+	"Salary" : 28000,
+	"Designation" : "Tester"
+}
+  b) Increase the salary of the employee by 1000 based on a user-specified EmpName.
+    
+> db.Employee.updateOne(
+...   { EmpName: "Suresh" },
+...   { $inc: { Salary: 1000 } }
+... )
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+c) Add a new field named DOJ to existing documents in the Employee collection. 
+   
+> db.Employee.updateMany(
+...   {},
+...   { $set: { DOJ: "2024-01-01" } }
+... )
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+
+ d) Fetch all records from the collection.
+
+> db.Employee.find({}, { _id: 1, EmpId: 1, EmpName: 1, Salary: 1, DOJ: 1 }).pretty()
+{
+	"_id" : ObjectId("69c2554d98e2a91bf1cc5f1f"),
+	"EmpId" : 1,
+	"EmpName" : "Suresh",
+	"Salary" : 31000,
+	"DOJ" : "2024-01-01"
+}
+{
+	"_id" : ObjectId("69c2554d98e2a91bf1cc5f20"),
+	"EmpId" : 2,
+	"EmpName" : "Anil",
+	"Salary" : 25000,
+	"DOJ" : "2024-01-01"
+}
+{
+	"_id" : ObjectId("69c2554d98e2a91bf1cc5f21"),
+	"EmpId" : 3,
+	"EmpName" : "Sita",
+	"Salary" : 28000,
+	"DOJ" : "2024-01-01"
+}
+
+ e) Delete a document from the Employee collection based on a user-specified EmpId.
+> db.Employee.deleteOne({ EmpId: 2 })
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+
+   
+
+
