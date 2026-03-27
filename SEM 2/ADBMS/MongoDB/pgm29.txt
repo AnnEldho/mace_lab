@@ -1,0 +1,51 @@
+PROG  29: Create a database named "Company" in MongoDB and add a collection called "Employee" with the following fields: EmpId, EmpName, DOB, Salary and Designation.
+
+> use Company
+switched to db Company
+> db.createCollection("Employee")
+{ "ok" : 1 }
+> db.Employee.insertOne({
+...   EmpId: 1,
+...   EmpName: "Suresh",
+...   DOB: "1990-05-10",
+...   Salary: 30000,
+...   Designation: "Manager"
+... })
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("69c652f779ab168afde8464c")
+}
+
+    a) Create multiple users with different roles.
+    
+    db.createUser({
+...   user: "adminUser",
+...   pwd: "admin123",
+...   roles: [{ role: "readWrite", db: "Company" }]
+... })
+Successfully added user: {
+	"user" : "adminUser",
+	"roles" : [
+		{
+			"role" : "readWrite",
+			"db" : "Company"
+		}
+	]
+}
+> 
+> db.createUser({
+...   user: "readUser",
+...   pwd: "read123",
+...   roles: [{ role: "read", db: "Company" }]
+... })
+Successfully added user: {
+	"user" : "readUser",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "Company"
+		}
+	]
+}
+
+    b) Insert and update a document into the Employee collection while logged in as a read-only user.

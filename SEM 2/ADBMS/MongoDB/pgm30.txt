@@ -1,0 +1,145 @@
+PROG  30: Create database Organization in mongodb and make Collection with name "Employee "    EmpId
+EmpId		EmpName		Salary	Designation
+101		Ram		15000	Clerk
+102		Shyam		20000	Administrator
+103		Hari		10000	Supervisor
+104		Sita		15000	Clerk
+105		Rose		20000	Administrator
+106		Maria		25000	Manager
+                                                                          
+    
+ _____________________________________________________________________   
+    > use Organization
+switched to db Organization
+> db.createCollection("Employee")
+{ "ok" : 1 }
+_________________________________________________________________________
+a) Insert Records into Employee Details Collection
+
+
+> db.Employee.insertMany([
+... { EmpId: 101, EmpName: "Ram", Salary: 15000, Designation: "Clerk" },
+... { EmpId: 102, EmpName: "Shyam", Salary: 20000, Designation: "Administrator" },
+... { EmpId: 103, EmpName: "Hari", Salary: 10000, Designation: "Supervisor" },
+... { EmpId: 104, EmpName: "Sita", Salary: 15000, Designation: "Clerk" },
+... { EmpId: 105, EmpName: "Rose", Salary: 20000, Designation: "Administrator" },
+... { EmpId: 106, EmpName: "Maria", Salary: 25000, Designation: "Manager" }
+... ])
+
+==={
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("69c656e8766d77fa4ca9e3dd"),
+		ObjectId("69c656e8766d77fa4ca9e3de"),
+		ObjectId("69c656e8766d77fa4ca9e3df"),
+		ObjectId("69c656e8766d77fa4ca9e3e0"),
+		ObjectId("69c656e8766d77fa4ca9e3e1"),
+		ObjectId("69c656e8766d77fa4ca9e3e2")
+	]
+}
+
+_____________________________________________________________________         
+    
+    b) List all the details of employees in a neat format.
+    
+    > db.Employee.find().pretty()
+{
+	"_id" : ObjectId("69c656e8766d77fa4ca9e3dd"),
+	"EmpId" : 101,
+	"EmpName" : "Ram",
+	"Salary" : 15000,
+	"Designation" : "Clerk"
+}
+{
+	"_id" : ObjectId("69c656e8766d77fa4ca9e3de"),
+	"EmpId" : 102,
+	"EmpName" : "Shyam",
+	"Salary" : 20000,
+	"Designation" : "Administrator"
+}
+{
+	"_id" : ObjectId("69c656e8766d77fa4ca9e3df"),
+	"EmpId" : 103,
+	"EmpName" : "Hari",
+	"Salary" : 10000,
+	"Designation" : "Supervisor"
+}
+{
+	"_id" : ObjectId("69c656e8766d77fa4ca9e3e0"),
+	"EmpId" : 104,
+	"EmpName" : "Sita",
+	"Salary" : 15000,
+	"Designation" : "Clerk"
+}
+{
+	"_id" : ObjectId("69c656e8766d77fa4ca9e3e1"),
+	"EmpId" : 105,
+	"EmpName" : "Rose",
+	"Salary" : 20000,
+	"Designation" : "Administrator"
+}
+{
+	"_id" : ObjectId("69c656e8766d77fa4ca9e3e2"),
+	"EmpId" : 106,
+	"EmpName" : "Maria",
+	"Salary" : 25000,
+	"Designation" : "Manager"
+}
+_________________________________________________________________________
+    c) Find Document From the Employee Details collection where name begins with S
+    
+    > db.Employee.find(
+   { EmpName: { $regex: "^S" } }
+ )
+
+
+{ "_id" : ObjectId("69c656e8766d77fa4ca9e3de"), "EmpId" : 102, "EmpName" : "Shyam", "Salary" : 20000, "Designation" : "Administrator" }
+{ "_id" : ObjectId("69c656e8766d77fa4ca9e3e0"), "EmpId" : 104, "EmpName" : "Sita", "Salary" : 15000, "Designation" : "Clerk" }
+___________________________________________________________________
+    d) Update Salary Of Employee where Name is "Sita" by +1000
+    
+    > db.Employee.updateOne(
+   { EmpName: "Sita" },
+   { $inc: { Salary: 1000 } }
+ )
+ 
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }___________________________________________________________________
+    e) Add a New Field Date of Joining to document with name "DOJ" 
+   
+   > db.Employee.updateMany(
+   {},
+   { $set: { DOJ: "2024-01-01" } }
+ )
+
+{ "acknowledged" : true, "matchedCount" : 6, "modifiedCount" : 6 } _________________________________________________________________________
+    f) Find sum of salaries of employees with designation as “clerk”
+    
+    > db.Employee.aggregate([
+...   { $match: { Designation: "Clerk" } },
+...   { $group: { _id: "Clerk", totalSalary: { $sum: "$Salary" } } }
+... ])
+
+{ "_id" : "Clerk", "totalSalary" : 31000 }
+_________________________________________________________________________
+    g) Delete a document having employee id with 106.
+    
+    > db.Employee.deleteOne({ EmpId: 106 })
+    
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+_________________________________________________________________________    h) Create a user with name “Mohan” and give read/write role to the user for Employee database.
+> db.createUser({
+...   user: "Mohan",
+...   pwd: "mohan123",
+...   roles: [{ role: "readWrite", db: "Organization" }]
+... })
+Successfully added user: {
+	"user" : "Mohan",
+	"roles" : [
+		{
+			"role" : "readWrite",
+			"db" : "Organization"
+		}
+	]
+}
+
