@@ -1,0 +1,161 @@
+PROG  31:Create database Student in MONGODB and make Collection with name "StudentDetails"                                                                                                   
+             
+RollNo  Name        Age     Course
+101     Anna        20      MCA
+102     Catherine   21      MTECH
+103     Denna       22      BTECH
+104     Sam         25      MCA
+105     Karthik     24      MCA
+106     Aravind     20      MCA
+
+> use Student
+switched to db Student
+> db.createCollection("StudentDetails")
+{ "ok" : 1 }
+----------------------------------------------------------------------
+a. Insert Records into StudentDetails Collection
+----------------------------------------------------------------------
+> db.StudentDetails.insertMany([
+  { RollNo: 101, Name: "Anna", Age: 20, Course: "MCA" },
+  { RollNo: 102, Name: "Catherine", Age: 21, Course: "MTECH" },
+  { RollNo: 103, Name: "Denna", Age: 22, Course: "BTECH" },
+  { RollNo: 104, Name: "Sam", Age: 25, Course: "MCA" },
+  { RollNo: 105, Name: "Karthik", Age: 24, Course: "MCA" },
+  { RollNo: 106, Name: "Aravind", Age: 20, Course: "MCA" }
+])
+----------------------------------------------------------------------
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("69cb8c009e57cba8a69a7296"),
+		ObjectId("69cb8c009e57cba8a69a7297"),
+		ObjectId("69cb8c009e57cba8a69a7298"),
+		ObjectId("69cb8c009e57cba8a69a7299"),
+		ObjectId("69cb8c009e57cba8a69a729a"),
+		ObjectId("69cb8c009e57cba8a69a729b")
+	]
+}
+----------------------------------------------------------------------
+b. List all the details of Students in a neat format.
+----------------------------------------------------------------------
+>db.StudentDetails.find().pretty()
+----------------------------------------------------------------------
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a7296"),
+	"RollNo" : 101,
+	"Name" : "Anna",
+	"Age" : 20,
+	"Course" : "MCA"
+}
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a7297"),
+	"RollNo" : 102,
+	"Name" : "Catherine",
+	"Age" : 21,
+	"Course" : "MTECH"
+}
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a7298"),
+	"RollNo" : 103,
+	"Name" : "Denna",
+	"Age" : 22,
+	"Course" : "BTECH"
+}
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a7299"),
+	"RollNo" : 104,
+	"Name" : "Sam",
+	"Age" : 25,
+	"Course" : "MCA"
+}
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a729a"),
+	"RollNo" : 105,
+	"Name" : "Karthik",
+	"Age" : 24,
+	"Course" : "MCA"
+}
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a729b"),
+	"RollNo" : 106,
+	"Name" : "Aravind",
+	"Age" : 20,
+	"Course" : "MCA"
+}
+
+----------------------------------------------------------------------
+c. Find Document From the StudentDetails collection where name begins with A
+----------------------------------------------------------------------
+> db.StudentDetails.find({
+  Name: { $regex: "^A" }
+}).pretty()
+----------------------------------------------------------------------
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a7296"),
+	"RollNo" : 101,
+	"Name" : "Anna",
+	"Age" : 20,
+	"Course" : "MCA"
+}
+{
+	"_id" : ObjectId("69cb8c009e57cba8a69a729b"),
+	"RollNo" : 106,
+	"Name" : "Aravind",
+	"Age" : 20,
+	"Course" : "MCA"
+}
+----------------------------------------------------------------------
+d. Update course Of student to Mtech whose rollno is 106 
+----------------------------------------------------------------------
+> db.StudentDetails.updateOne(
+  { RollNo: 106 },
+  { $set: { Course: "MTECH" } }
+)
+----------------------------------------------------------------------
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+----------------------------------------------------------------------
+e Add a New Field Date of Joining to document with name "DOJ" 
+----------------------------------------------------------------------
+> db.StudentDetails.updateMany(
+  {},
+  { $set: { DOJ: "2025-01-01" } }
+)
+----------------------------------------------------------------------
+{ "acknowledged" : true, "matchedCount" : 6, "modifiedCount" : 6 }
+----------------------------------------------------------------------
+f Find total number of students who opted MCA.
+----------------------------------------------------------------------
+db.StudentDetails.count({
+  Course: "MCA"
+})
+----------------------------------------------------------------------
+3
+----------------------------------------------------------------------
+g Delete a document having RollNo 104.
+----------------------------------------------------------------------
+> db.StudentDetails.deleteOne({
+  RollNo: 104
+})
+----------------------------------------------------------------------
+{ "acknowledged" : true, "deletedCount" : 1 }
+----------------------------------------------------------------------
+h Create a user with name “Mohan” and give read/write role to the user for Student database.
+----------------------------------------------------------------------
+> db.createUser({
+  user: "Mohan",
+  pwd: "123",
+  roles: [
+    { role: "readWrite", db: "Student" }
+  ]
+})
+----------------------------------------------------------------------
+Successfully added user: {
+	"user" : "Mohan",
+	"roles" : [
+		{
+			"role" : "readWrite",
+			"db" : "Student"
+		}
+	]
+}
+----------------------------------------------------------------------

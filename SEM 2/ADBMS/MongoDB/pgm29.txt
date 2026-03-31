@@ -13,18 +13,20 @@ switched to db Company
 ... })
 {
 	"acknowledged" : true,
-	"insertedId" : ObjectId("69c652f779ab168afde8464c")
+	"insertedId" : ObjectId("69cb856f1cd701607a420387")
 }
 
     a) Create multiple users with different roles.
-    
-    db.createUser({
-...   user: "adminUser",
-...   pwd: "admin123",
-...   roles: [{ role: "readWrite", db: "Company" }]
-... })
+
+> db.createUser({
+   user: "writeUser",
+   pwd: "123",
+   roles: [
+     { role: "readWrite", db: "Company" }
+   ]
+ })
 Successfully added user: {
-	"user" : "adminUser",
+	"user" : "writeUser",
 	"roles" : [
 		{
 			"role" : "readWrite",
@@ -32,6 +34,7 @@ Successfully added user: {
 		}
 	]
 }
+
 > 
 > db.createUser({
 ...   user: "readUser",
@@ -48,4 +51,25 @@ Successfully added user: {
 	]
 }
 
-    b) Insert and update a document into the Employee collection while logged in as a read-only user.
+    b) Insert and update a document into the Employee collection while logged in as a read-write user.
+> db.auth("writeUser", "123")
+1
+
+> db.Employee.insertOne({
+...   EmpId: 2,
+...   EmpName: "Anil",
+...   DOB: "1995-03-12",
+...   Salary: 25000,
+...   Designation: "Clerk"
+... })
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("69cb866c1cd701607a420388")
+}
+
+> db.Employee.updateOne(
+...   { EmpId: 2 },
+...   { $set: { Salary: 26000 } }
+... )
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+>
