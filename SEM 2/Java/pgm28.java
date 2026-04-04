@@ -15,7 +15,7 @@ class Employee implements Serializable {
 }
 
 // Main class
-class EmployeeDemo {
+class pgm28 {
     public static void main(String[] args) throws Exception {
 
         // Create object

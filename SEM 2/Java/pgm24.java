@@ -26,7 +26,7 @@ class Writer implements Runnable {
  
     @Override
     public void run() {
-        synchronized (lock) {
+        synchronized (lock) { 
             try {
                 System.out.println("Write A");
                 Thread.sleep(500);
