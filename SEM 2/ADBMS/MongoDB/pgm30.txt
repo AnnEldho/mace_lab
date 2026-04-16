@@ -103,7 +103,8 @@ ___________________________________________________________________
    { $inc: { Salary: 1000 } }
  )
  
-{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }___________________________________________________________________
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+___________________________________________________________________
     e) Add a New Field Date of Joining to document with name "DOJ" 
    
    > db.Employee.updateMany(
@@ -111,7 +112,8 @@ ___________________________________________________________________
    { $set: { DOJ: "2024-01-01" } }
  )
 
-{ "acknowledged" : true, "matchedCount" : 6, "modifiedCount" : 6 } _________________________________________________________________________
+{ "acknowledged" : true, "matchedCount" : 6, "modifiedCount" : 6 }
+  _________________________________________________________________________
     f) Find sum of salaries of employees with designation as “clerk”
     
     > db.Employee.aggregate([
