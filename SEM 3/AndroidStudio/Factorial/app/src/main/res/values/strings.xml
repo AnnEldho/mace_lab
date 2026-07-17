@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Factorial</string>
+    <string name="enter_a_number">Enter a number</string>
+    <string name="factorial">Factorial</string>
+    <string name="result">Result</string>
+</resources>
