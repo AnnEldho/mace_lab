@@ -32,21 +32,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
-    public void onClick(View v){
-        int n = Integer.parseInt(number.getText().toString());
+
+    public void onClick(View v) {
+
+        String input = number.getText().toString().trim();
+
+        if (input.isEmpty()) {
+            result.setText("Please enter a number.");
+            return;
+        }
+
+        int n = Integer.parseInt(input);
 
         if (n < 0) {
             result.setText("Error! Enter a positive number.");
             return;
         }
+
         BigInteger fact = BigInteger.ONE;
 
         for (int i = 1; i <= n; i++) {
             fact = fact.multiply(BigInteger.valueOf(i));
         }
 
-        result.setText(String.format("Factorial = %d", fact));
-
-        }
+        result.setText("Factorial = " + fact.toString());
+    }
 
     }
