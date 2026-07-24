@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IntentSharedPreferences</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_email">Enter email</string>
 </resources>
