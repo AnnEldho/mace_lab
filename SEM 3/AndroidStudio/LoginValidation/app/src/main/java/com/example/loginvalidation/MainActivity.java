@@ -22,20 +22,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        login=(Button)findViewById(R.id.loginButton);
+
+        user = findViewById(R.id.username);
+        pwd = findViewById(R.id.password);
+        login = findViewById(R.id.loginButton);
+
         login.setOnClickListener(this);
     }
 
-    public void onClick(View v){
-        if (v.getId()==R.id.loginButton) {
-            user=(EditText)findViewById(R.id.username);
-            pwd=(EditText)findViewById(R.id.password);
-            String a=user.getText().toString();
-            String b=pwd.getText().toString();
-            if (a.equals(u) && b.equals(p))
-                Toast.makeText(this,"Login Successful",Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(this,"Invalid LOgin",Toast.LENGTH_LONG).show();
+    @Override
+    public void onClick(View v) {
+
+        String a = user.getText().toString().trim();
+        String b = pwd.getText().toString().trim();
+
+        // Check if fields are empty
+        if (a.isEmpty() || b.isEmpty()) {
+            Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (a.equals(u) && b.equals(p)) {
+            Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Invalid Login", Toast.LENGTH_LONG).show();
         }
     }
 }
