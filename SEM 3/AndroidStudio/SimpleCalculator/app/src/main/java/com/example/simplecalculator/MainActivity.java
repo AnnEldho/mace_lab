@@ -35,10 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mul.setOnClickListener(this);
         div.setOnClickListener(this);
 
-        add.setOnClickListener(this);
-        sub.setOnClickListener(this);
-        mul.setOnClickListener(this);
-        div.setOnClickListener(this);
     }
 
     @Override
