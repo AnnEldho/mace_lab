@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText num1, num2;
     Button add, sub, mul, div;
     TextView result;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         div.setOnClickListener(this);
 
     }
-
     @Override
     public void onClick(View v) {
 
