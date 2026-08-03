@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ImplicitIntent</string>
+    <string name="implicit_intents">Implicit Intents</string>
+    <string name="open_map">Open Map</string>
+    <string name="open_play_store">Open Play Store</string>
+    <string name="send_email">Send Email</string>
+    <string name="share_image">Share Image</string>
+</resources>
