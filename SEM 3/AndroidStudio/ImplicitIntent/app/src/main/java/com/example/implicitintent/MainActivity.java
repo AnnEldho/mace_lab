@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        map = findViewById(R.id.map);
-        play = findViewById(R.id.play);
-        email = findViewById(R.id.email);
-        msg = findViewById(R.id.msg);
+        map = (Button) findViewById(R.id.map);
+        play = (Button) findViewById(R.id.play);
+        email = (Button) findViewById(R.id.email);
+        msg = (Button)  findViewById(R.id.msg);
 
         map.setOnClickListener(this);
         play.setOnClickListener(this);
