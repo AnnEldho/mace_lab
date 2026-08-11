@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">EventRegistration</string>
+    <string name="event_registration">EVENT REGISTRATION</string>
+    <string name="back_to_edit">Back to Edit</string>
+    <string name="confirm_registration">Confirm Registration</string>
+    <string name="student">Student</string>
+    <string name="professional">Professional</string>
+    <string name="workshops">Workshops</string>
+    <string name="android_development">Android Development</string>
+    <string name="ai_ml"><![CDATA[AI & ML]]></string>
+    <string name="cybersecurity">Cybersecurity</string>
+    <string name="submit">Submit</string>
+    <string name="registration_confirmed">Registration Confirmed</string>
+</resources>

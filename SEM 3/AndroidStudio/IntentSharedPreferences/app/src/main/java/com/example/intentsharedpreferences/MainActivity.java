@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(sp.contains("Name"))
             name.setText(sp.getString("Name",""));
         if(sp.contains("Email"))
-            name.setText(sp.getString("Email",""));
+            email.setText(sp.getString("Email",""));
 
     }
 
