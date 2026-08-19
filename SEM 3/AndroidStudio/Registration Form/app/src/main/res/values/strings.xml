@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Registration Form</string>
+    <string name="create_your_profile">Create Your Profile</string>
+    <string name="register_for_the_event">Register for the event</string>
+    <string name="full_name">Full Name</string>
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="email_address">Email Address</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="interests">Interests</string>
+    <string name="coding">Coding</string>
+    <string name="music">Music</string>
+    <string name="sports">Sports</string>
+    <string name="register_now">REGISTER NOW</string>
+    <string name="your_information_is_safe_with_us">Your information is safe with us</string>
+    <string name="profile_details">Profile Details</string>
+    <string name="my_profile">My Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+</resources>
